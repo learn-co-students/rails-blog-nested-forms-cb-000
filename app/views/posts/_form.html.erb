@@ -18,11 +18,17 @@
     <%= f.text_area :content %><br>
     Tags:
   </div>
-
+  <h1>Tags:</h1>
   <div class="field">
     <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %><br>
   </div>
 
+  <h1>New tag:</h1>
+  <div class="field">
+    <%= f.fields_for :tags, @post.tags.build do |tag_attributes| %>
+      <%= tag_attributes.text_field :name, id: "Name" %><br>
+    <% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
