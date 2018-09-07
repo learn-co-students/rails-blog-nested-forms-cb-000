@@ -5,6 +5,14 @@ class Post < ActiveRecord::Base
   has_many :tags, :through => :post_tags
 
   validates_presence_of :name, :content
-  accepts_nested_attributes_for :tags
+  # accepts_nested_attributes_for :tags
+  def tags_attributes=(tags_attributes)
+    tags_attributes.each do |i, tag_attributes|
+      # binding.pry
+      if tag_attributes && !tag_attributes["name"].empty?
+        self.tags.build(tag_attributes)
+      end
+    end
+  end
 
 end
